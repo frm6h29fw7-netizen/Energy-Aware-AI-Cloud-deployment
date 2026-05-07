@@ -15,9 +15,14 @@ simulator-reports.json
 backend-events.json
 
 # Local dissertation/report drafting files
+*.doc
+*.docx
+*.pdf
 Energy-Aware-AI-Cloud-Deployment-Report-Draft.docx
 FINAL_YEAR_DISSERTATION_CHECKLIST.md
 build_dissertation_report.py
+build_*report*.py
+report-*.png
 report-methodology-flow.png
 report-system-architecture.png
 
