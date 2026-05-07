@@ -33,12 +33,14 @@ except ImportError:
 
 PORT = int(os.environ.get("PORT", "8080"))
 HOST = os.environ.get("HOST", "0.0.0.0")
-ROOT = Path(__file__).resolve().parent
-HISTORY_FILE = ROOT / "experiment-history.csv"
-USERS_FILE = ROOT / "user-accounts.json"
-ASSISTANT_HISTORY_FILE = ROOT / "assistant-history.json"
-REPORTS_FILE = ROOT / "simulator-reports.json"
-BACKEND_EVENTS_FILE = ROOT / "backend-events.json"
+BACKEND_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BACKEND_DIR.parent
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
+HISTORY_FILE = PROJECT_ROOT / "experiment-history.csv"
+USERS_FILE = PROJECT_ROOT / "user-accounts.json"
+ASSISTANT_HISTORY_FILE = PROJECT_ROOT / "assistant-history.json"
+REPORTS_FILE = PROJECT_ROOT / "simulator-reports.json"
+BACKEND_EVENTS_FILE = PROJECT_ROOT / "backend-events.json"
 MONGODB_URI = os.environ.get("MONGODB_URI", "mongodb://127.0.0.1:27017")
 MONGODB_NAME = os.environ.get("MONGODB_NAME", "energy_aware_ai")
 MONGODB_TIMEOUT_MS = int(os.environ.get("MONGODB_TIMEOUT_MS", "10000"))
@@ -54,7 +56,7 @@ _MONGO_CHECKED = False
 
 class EnergyAwareHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=str(ROOT), **kwargs)
+        super().__init__(*args, directory=str(FRONTEND_DIR), **kwargs)
 
     def do_GET(self) -> None:
         parsed = urlparse(self.path)

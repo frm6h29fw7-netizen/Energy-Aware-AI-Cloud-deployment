@@ -1,121 +1,92 @@
 # Energy-Aware AI Cloud Deployment
 
-This is a final-year project prototype for evaluating **energy-aware AI model deployment in cloud environments**.
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/frm6h29fw7-netizen/Energy-Aware-AI-Cloud-deployment)
 
-## What The Project Does
+A final-year project prototype for evaluating energy-aware AI model deployment choices across cloud execution styles.
 
-- Shows a professional website dashboard.
-- Runs a Python backend server.
-- Provides an API for energy, carbon, latency, accuracy, cost, throughput, and risk calculations.
-- Requires sign-in and terms acceptance before using the dashboard.
-- Saves experiments under the signed-in username.
-- Supports optional MongoDB storage for user accounts, experiment history, simulator reports, APX Assistant chats, and backend events.
-- Includes APX Assistant, which can use OpenAI when `OPENAI_API_KEY` is configured and falls back to a local rule-based advisor when it is not.
-- Gives deployment recommendations.
-- Saves experiment history into `experiment-history.csv`.
-- Includes a simple Python console simulator for VS Code evidence.
+The application helps compare deployment options using estimated energy use, carbon impact, latency, cost, accuracy retention, throughput, utilisation, and operational risk. It includes a responsive dashboard, simulator, sign-in flow, optional MongoDB storage, and APX Assistant for project-focused guidance.
 
-## Best Way To Run It
+## Quick Start
 
-### Run In GitHub Codespaces
+### GitHub Codespaces
 
-1. Open the GitHub repository.
-2. Click `Code`.
-3. Choose `Codespaces`.
-4. Click `Create codespace on main`.
-5. Wait for the setup to finish. Codespaces installs the Python requirements automatically.
-6. The app starts automatically on port `8080`.
-7. Open the forwarded port named `Energy-Aware AI Dashboard`.
+1. Click the `Open in GitHub Codespaces` button above.
+2. Wait for the container setup to finish.
+3. Open the forwarded port named `Energy-Aware AI Dashboard`.
 
-If the server does not start automatically, run:
+Codespaces installs the Python requirements and starts the backend automatically on port `8080`.
+
+If it does not start automatically, run:
 
 ```bash
-python3 server.py
+python3 backend/server.py
 ```
 
-Then open the forwarded `8080` port.
-
-### Run Locally
-
-1. Open this folder in VS Code.
-
-2. Run the backend:
-
-   ```bash
-   python3 server.py
-   ```
-
-3. Open this in your browser:
-
-   `http://localhost:8080`
-
-4. Sign in, accept the terms and conditions, use the simulator, and click `Save experiment`.
-
-## Codespaces Notes
-
-- The project includes `.devcontainer/devcontainer.json` so GitHub Codespaces can install dependencies and forward port `8080`.
-- The backend binds to `0.0.0.0` by default, which allows Codespaces port forwarding to work.
-- MongoDB and OpenAI are optional. Without those keys, the project still runs using local JSON/CSV fallback storage and the built-in APX Assistant fallback.
-- Runtime data files are ignored by Git, so every fresh Codespace starts clean.
-
-## Optional MongoDB Setup
-
-The project works without MongoDB by using `user-accounts.json`, `experiment-history.csv`, and local JSON evidence files.
-For extra full-stack evidence, install `pymongo` and run MongoDB locally:
+### Local Development
 
 ```bash
 python3 -m pip install -r requirements.txt
+python3 backend/server.py
 ```
 
-Then start MongoDB and run the server. By default it uses:
+Then open:
 
 ```text
-mongodb://127.0.0.1:27017
+http://localhost:8080
 ```
 
-You can override this with:
+## Features
+
+- Responsive web dashboard for energy-aware AI deployment evaluation.
+- Python backend API for simulator calculations and saved experiments.
+- Sign-in and sign-up flow with password hashing.
+- APX Assistant with local fallback responses and optional OpenAI support.
+- Optional MongoDB support for users, experiments, assistant chats, simulator reports, and backend events.
+- Codespaces configuration for easier tutor review and demonstration.
+
+## Project Structure
+
+```text
+.
+├── .devcontainer/          GitHub Codespaces configuration
+├── backend/                Python server, simulator, and energy model
+├── frontend/               HTML, CSS, and JavaScript dashboard UI
+├── scripts/                Optional MongoDB import/migration scripts
+├── .env.example            Example environment configuration
+├── requirements.txt        Python dependencies
+└── README.md               Project guide
+```
+
+## Optional MongoDB
+
+The project runs without MongoDB by using local JSON/CSV fallback storage. To use MongoDB, set these environment variables before starting the backend:
 
 ```bash
-MONGODB_URI="mongodb://127.0.0.1:27017" MONGODB_NAME="energy_aware_ai" python3 server.py
+MONGODB_URI="mongodb://127.0.0.1:27017"
+MONGODB_NAME="energy_aware_ai"
+python3 backend/server.py
 ```
 
 MongoDB collections used by the backend:
 
-- `users`: sign-up account records with hashed passwords
-- `experiments`: saved simulator experiment values
-- `simulator_reports`: dissertation-style summaries for saved scenarios
-- `assistant_chats`: APX Assistant questions, answers, and scenario snapshots
-- `backend_events`: sign-up, login, logout, assistant, and save events
+- `users`
+- `experiments`
+- `simulator_reports`
+- `assistant_chats`
+- `backend_events`
 
-## Optional OpenAI Assistant Setup
+## Optional OpenAI Assistant
 
-APX Assistant works without OpenAI by using the local rule-based project advisor.
-To make it behave more like a real AI chatbot, set an OpenAI API key on the backend:
+APX Assistant works without OpenAI by using the built-in project-focused fallback. To enable OpenAI-backed responses, run:
 
 ```bash
-OPENAI_API_KEY="your_api_key_here" OPENAI_MODEL="gpt-5.2" OPENAI_ENABLE_WEB="true" python3 server.py
+OPENAI_API_KEY="your_api_key_here" OPENAI_MODEL="gpt-5.2" OPENAI_ENABLE_WEB="true" python3 backend/server.py
 ```
 
-Keep the API key on the backend only. Do not put it in `app.js` or expose it in browser code.
-The assistant is intentionally scoped to this website and project, so it should answer only about simulator results, deployment trade-offs, backend/MongoDB evidence, limitations, screenshots, and project explanation.
-When `OPENAI_ENABLE_WEB` is `true`, OpenAI can use web search for current project-related information and the UI displays source URLs as clickable links.
+Keep API keys on the backend only. Do not place secrets in frontend files.
 
-## Project Scope
+## Scope
 
-This is not a basic static website. It is a prototype web application with a Python backend. The system evaluates deployment scenarios for AI inference workloads and compares virtual machine, container, and serverless deployments using indirect energy-aware metrics.
+This is a decision-support prototype. It does not directly measure real data-centre electricity consumption and it does not train a new AI model. Instead, it estimates and compares deployment scenarios using energy-aware metrics that are relevant to cloud AI inference workloads.
 
-The project does not train a new deep learning model because that would require more data, hardware, and time. Instead, it focuses on deployment evaluation, which matches the literature review topic. The prototype demonstrates how cloud AI deployments can be assessed using energy, carbon, latency, accuracy retention, utilisation, and cost.
-
-The system should be described as a simulator and decision-support prototype. It does not directly measure physical data-centre electricity usage.
-
-## Main Files
-
-- `index.html`: website structure
-- `styles.css`: dashboard design
-- `app.js`: frontend logic and charts
-- `server.py`: Python backend and API
-- `energy_model.py`: Python energy-aware deployment model
-- `simulator.py`: Python console simulator
-- `requirements.txt`: optional Python package list for MongoDB support
-
-Local runtime files such as account records, assistant chat history, backend events, simulator reports, and experiment CSV exports are ignored by Git to avoid uploading private data.
+Local runtime data, report drafts, templates, and evidence files are intentionally ignored by Git so the repository stays focused on the runnable application.

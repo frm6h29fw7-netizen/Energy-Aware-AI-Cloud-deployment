@@ -19,7 +19,7 @@ except ImportError:
     certifi = None
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 USERS_FILE = ROOT / "user-accounts.json"
 HISTORY_FILE = ROOT / "experiment-history.csv"
 REPORTS_FILE = ROOT / "simulator-reports.json"
