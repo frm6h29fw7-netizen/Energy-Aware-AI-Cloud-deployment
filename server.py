@@ -31,7 +31,8 @@ except ImportError:
     certifi = None
 
 
-PORT = 8080
+PORT = int(os.environ.get("PORT", "8080"))
+HOST = os.environ.get("HOST", "0.0.0.0")
 ROOT = Path(__file__).resolve().parent
 HISTORY_FILE = ROOT / "experiment-history.csv"
 USERS_FILE = ROOT / "user-accounts.json"
@@ -693,11 +694,16 @@ def verify_password(password: str, stored_hash: str) -> bool:
 
 def main() -> None:
     ensure_history_file(HISTORY_FILE)
-    server = ThreadingHTTPServer(("127.0.0.1", PORT), EnergyAwareHandler)
+    server = ThreadingHTTPServer((HOST, PORT), EnergyAwareHandler)
     print("Energy-Aware AI Python project is running.")
     print(f"Open this in your browser: http://localhost:{PORT}")
     print("Press Ctrl+C to stop the server.")
-    server.serve_forever()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\nServer stopped.")
+    finally:
+        server.server_close()
 
 
 if __name__ == "__main__":

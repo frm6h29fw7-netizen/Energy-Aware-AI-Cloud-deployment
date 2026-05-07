@@ -17,6 +17,26 @@ This is a final-year project prototype for evaluating **energy-aware AI model de
 
 ## Best Way To Run It
 
+### Run In GitHub Codespaces
+
+1. Open the GitHub repository.
+2. Click `Code`.
+3. Choose `Codespaces`.
+4. Click `Create codespace on main`.
+5. Wait for the setup to finish. Codespaces installs the Python requirements automatically.
+6. The app starts automatically on port `8080`.
+7. Open the forwarded port named `Energy-Aware AI Dashboard`.
+
+If the server does not start automatically, run:
+
+```bash
+python3 server.py
+```
+
+Then open the forwarded `8080` port.
+
+### Run Locally
+
 1. Open this folder in VS Code.
 
 2. Run the backend:
@@ -30,6 +50,13 @@ This is a final-year project prototype for evaluating **energy-aware AI model de
    `http://localhost:8080`
 
 4. Sign in, accept the terms and conditions, use the simulator, and click `Save experiment`.
+
+## Codespaces Notes
+
+- The project includes `.devcontainer/devcontainer.json` so GitHub Codespaces can install dependencies and forward port `8080`.
+- The backend binds to `0.0.0.0` by default, which allows Codespaces port forwarding to work.
+- MongoDB and OpenAI are optional. Without those keys, the project still runs using local JSON/CSV fallback storage and the built-in APX Assistant fallback.
+- Runtime data files are ignored by Git, so every fresh Codespace starts clean.
 
 ## Optional MongoDB Setup
 

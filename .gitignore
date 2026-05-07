@@ -27,3 +27,4 @@ report-system-architecture.png
 # OS/editor files
 .DS_Store
 .vscode/
+.codespaces-server.log

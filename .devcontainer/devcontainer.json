@@ -1,0 +1,20 @@
+{
+  "name": "Energy-Aware AI Cloud Deployment",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "Energy-Aware AI Dashboard",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.txt",
+  "postAttachCommand": "pgrep -f 'python3 server.py' >/dev/null || nohup python3 server.py > .codespaces-server.log 2>&1 &",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python"
+      ]
+    }
+  }
+}
