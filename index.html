@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Energy-Aware AI Cloud Deployment</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="auth-locked">
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Project navigation">
+        <div class="brand">
+          <div class="brand-mark">APX</div>
+          <div>
+            <h1>Energy-Aware AI</h1>
+            <p>Cloud deployment dashboard</p>
+          </div>
+        </div>
+        <nav class="nav-tabs" aria-label="Sections">
+          <button class="tab-button active" data-tab="overview">Overview</button>
+          <button class="tab-button" data-tab="simulator">Simulator</button>
+          <button class="tab-button" data-tab="assistant">APX Assistant</button>
+          <button class="tab-button" data-tab="methods">Methods</button>
+          <button class="tab-button" data-tab="architecture">Architecture</button>
+          <button class="tab-button" data-tab="report">Evidence</button>
+        </nav>
+        <section class="account-card">
+          <small>Account</small>
+          <strong id="accountName">Guest user</strong>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false">
+            <span id="themeIcon">☀</span>
+            <span id="themeLabel">Light mode</span>
+          </button>
+          <button id="logoutButton" class="secondary-action hidden" type="button">Log out</button>
+          <button id="termsButton" class="link-button" type="button">Terms and conditions</button>
+          <p id="authMessage" class="auth-message">Sign in is required before using the dashboard.</p>
+        </section>
+        <section class="metric-strip" aria-label="Key project metrics">
+          <div>
+            <span id="energyScore">63%</span>
+            <small>energy reduction</small>
+          </div>
+          <div>
+            <span id="latencyScore">118ms</span>
+            <small>estimated latency</small>
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <section id="overview" class="tab-panel active">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <p class="eyebrow">Literature review project</p>
+              <h2>Energy-aware AI model deployment in cloud environments</h2>
+              <p>
+                A working prototype for comparing AI deployment options using energy, latency,
+                accuracy, utilisation, and carbon impact indicators.
+              </p>
+              <div class="hero-actions">
+                <button class="primary-action" data-open-tab="simulator">Run simulator</button>
+                <button class="secondary-action" data-open-tab="report">View evidence</button>
+              </div>
+            </div>
+            <div class="cloud-visual" aria-label="Cloud AI energy flow visual">
+              <canvas id="flowCanvas" width="620" height="420"></canvas>
+            </div>
+          </div>
+
+          <div class="insight-grid">
+            <article class="insight-card">
+              <span>01</span>
+              <h3>Model efficiency</h3>
+              <p>Pruning, quantisation, distillation, and lightweight architectures reduce compute demand during inference.</p>
+            </article>
+            <article class="insight-card">
+              <span>02</span>
+              <h3>Cloud deployment</h3>
+              <p>Containers, autoscaling, and serverless functions reduce idle resources when configured around workload patterns.</p>
+            </article>
+            <article class="insight-card">
+              <span>03</span>
+              <h3>Trade-off analysis</h3>
+              <p>Energy reduction must be balanced against accuracy loss, latency, reliability, and service-level requirements.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="simulator" class="tab-panel">
+          <header class="section-header">
+            <div>
+              <p class="eyebrow">Interactive model</p>
+              <h2>Deployment simulator</h2>
+            </div>
+            <div class="header-controls">
+              <span id="apiStatus" class="status-pill">Browser mode</span>
+              <select id="deploymentMode" aria-label="Deployment mode">
+                <option value="container">Container + autoscaling</option>
+                <option value="vm">Virtual machine baseline</option>
+                <option value="serverless">Serverless functions</option>
+              </select>
+            </div>
+          </header>
+
+          <div class="simulator-layout">
+            <form class="control-panel">
+              <label>
+                AI model profile
+                <select id="modelProfile">
+                  <option value="efficientnet">EfficientNet vision model</option>
+                  <option value="mobilenet">MobileNet image classifier</option>
+                  <option value="resnet">ResNet-50 baseline</option>
+                  <option value="bert">BERT text classifier</option>
+                </select>
+              </label>
+              <label>
+                Workload type
+                <select id="workload">
+                  <option value="standard">Standard API inference</option>
+                  <option value="realtime">Real-time inference</option>
+                  <option value="batch">Batch analytics</option>
+                  <option value="bursty">Bursty public traffic</option>
+                </select>
+              </label>
+              <label>
+                Daily requests
+                <input id="requests" type="range" min="10000" max="1000000" step="10000" value="250000">
+                <output id="requestsOut">250,000</output>
+              </label>
+              <label>
+                Model size
+                <input id="modelSize" type="range" min="20" max="800" step="10" value="88">
+                <output id="modelOut">88 MB</output>
+              </label>
+              <label>
+                Optimisation level
+                <input id="optimisation" type="range" min="0" max="80" step="5" value="45">
+                <output id="optimisationOut">45%</output>
+              </label>
+              <label>
+                Optimisation technique
+                <select id="technique">
+                  <option value="quantisation">Quantisation</option>
+                  <option value="pruning">Pruning</option>
+                  <option value="distillation">Knowledge distillation</option>
+                  <option value="hybrid">Pruning + quantisation</option>
+                  <option value="none">No compression</option>
+                </select>
+              </label>
+              <label>
+                Average utilisation
+                <input id="utilisation" type="range" min="15" max="95" step="5" value="60">
+                <output id="utilisationOut">60%</output>
+              </label>
+              <label>
+                Carbon intensity
+                <input id="carbonIntensity" type="range" min="0.020" max="0.650" step="0.001" value="0.193">
+                <output id="carbonIntensityOut">0.193 kg/kWh</output>
+              </label>
+              <label>
+                Latency target
+                <input id="slaLatency" type="range" min="60" max="400" step="10" value="140">
+                <output id="slaLatencyOut">140 ms</output>
+              </label>
+              <button id="saveScenario" class="primary-action" type="button">Save experiment</button>
+            </form>
+
+            <div class="results-panel">
+              <div class="result-card">
+                <small>Energy use</small>
+                <strong id="energyUse">0.00 kWh/day</strong>
+              </div>
+              <div class="result-card">
+                <small>CO2e</small>
+                <strong id="carbonUse">0.00 kg/day</strong>
+              </div>
+              <div class="result-card">
+                <small>Latency</small>
+                <strong id="latencyUse">0 ms</strong>
+              </div>
+              <div class="result-card">
+                <small>Accuracy retained</small>
+                <strong id="accuracyUse">0.0%</strong>
+              </div>
+              <div class="result-card">
+                <small>Estimated cost</small>
+                <strong id="costUse">£0.00/day</strong>
+              </div>
+              <div class="result-card">
+                <small>Efficiency score</small>
+                <strong id="efficiencyScoreUse">0/100</strong>
+              </div>
+              <div class="result-card">
+                <small>Throughput</small>
+                <strong id="throughputUse">0 rps</strong>
+              </div>
+              <div class="result-card">
+                <small>Risk level</small>
+                <strong id="riskUse">Low</strong>
+              </div>
+              <div class="metric-row">
+                <span><small>CPU proxy</small><strong id="cpuUse">0%</strong></span>
+                <span><small>GPU proxy</small><strong id="gpuUse">0%</strong></span>
+                <span><small>Memory</small><strong id="memoryUse">0 MB</strong></span>
+              </div>
+              <div class="model-summary">
+                <h3 id="modelSummaryTitle">Model scenario</h3>
+                <p id="modelSummaryText">The simulator compares an AI inference workload against deployment and optimisation choices.</p>
+              </div>
+              <div id="scenarioHealth" class="scenario-health health-medium">
+                <div>
+                  <small>Scenario health</small>
+                  <strong id="healthTitle">Needs review</strong>
+                </div>
+                <p id="healthText">Adjust the controls to review energy, accuracy, latency, and utilisation risk.</p>
+              </div>
+              <div class="recommendation-card">
+                <small>Deployment recommendation</small>
+                <strong id="recommendationTitle">Balanced option</strong>
+                <p id="recommendationText">Adjust the controls to compare energy and performance.</p>
+              </div>
+              <div class="comparison-panel">
+                <div class="comparison-header">
+                  <div>
+                    <small>Deployment comparison</small>
+                    <h3>VM vs Container vs Serverless</h3>
+                  </div>
+                  <span>Live model evidence</span>
+                </div>
+                <div id="comparisonList" class="comparison-list"></div>
+              </div>
+              <canvas id="barChart" width="760" height="300" aria-label="Scenario comparison chart"></canvas>
+              <div class="history-panel">
+                <h3>Saved experiment history</h3>
+                <div id="historyList" class="history-list">
+                  <p>No saved experiments yet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="assistant" class="tab-panel">
+          <header class="section-header">
+            <div>
+              <p class="eyebrow">Prototype support tool</p>
+              <h2>APX Assistant</h2>
+            </div>
+          </header>
+          <div class="assistant-layout">
+            <section class="assistant-panel">
+              <div id="assistantMessages" class="assistant-messages">
+                <div class="assistant-message bot">Hi, I am APX Assistant. Sign in and I will greet you by name, explain the current result, suggest improvements, and help you describe this prototype for your dissertation.</div>
+              </div>
+              <form id="assistantForm" class="assistant-form">
+                <input id="assistantInput" type="text" placeholder="Type naturally, e.g. explain result, make it clearer, what should I write?">
+                <button class="primary-action" type="submit">Ask</button>
+              </form>
+            </section>
+            <section class="assistant-notes">
+              <div class="assistant-profile">
+                <div class="assistant-avatar">APX</div>
+                <div>
+                  <h3>APX Assistant features</h3>
+                  <small>Scenario-aware project support</small>
+                </div>
+              </div>
+              <p>APX only answers questions related to this energy-aware AI deployment website, including simulator results, backend storage, evidence, limitations, and dissertation writing.</p>
+              <div class="quick-prompts">
+                <button type="button" data-prompt="Explain the current result">Explain result</button>
+                <button type="button" data-prompt="How can I improve this scenario?">Improve</button>
+                <button type="button" data-prompt="What does the risk level mean?">Risk</button>
+                <button type="button" data-prompt="How do I save experiment history?">Saving</button>
+                <button type="button" data-prompt="Make this idea clear and simple">Clear idea</button>
+                <button type="button" data-prompt="What limitations should I mention?">Limitations</button>
+                <button type="button" data-prompt="How can I write this in my dissertation?">Report help</button>
+                <button type="button" data-prompt="Which screenshots should I use as evidence?">Evidence</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section id="methods" class="tab-panel">
+          <header class="section-header">
+            <div>
+              <p class="eyebrow">Energy-aware techniques</p>
+              <h2>Optimisation methods</h2>
+            </div>
+          </header>
+          <div class="ai-signal-strip" aria-label="Energy-aware AI decision signals">
+            <span><strong>Compression</strong><small>smaller model footprint</small></span>
+            <span><strong>Autoscaling</strong><small>less idle compute</small></span>
+            <span><strong>Carbon proxy</strong><small>region-aware estimate</small></span>
+            <span><strong>SLA check</strong><small>latency and risk control</small></span>
+          </div>
+          <div class="method-list">
+            <article>
+              <span class="method-index">01</span>
+              <h3>AI model optimisation</h3>
+              <p>Pruning removes unnecessary network weights, quantisation lowers numerical precision, and knowledge distillation transfers behaviour from a large model into a smaller model. The simulator lets these methods change energy, latency, memory, and accuracy.</p>
+              <div class="tag-row"><span>Pruning</span><span>Quantisation</span><span>Distillation</span></div>
+            </article>
+            <article>
+              <span class="method-index">02</span>
+              <h3>Deployment strategy</h3>
+              <p>Container-based deployment can reduce operating system overhead compared with full virtual machines. Autoscaling can reduce idle time by matching resources to demand.</p>
+              <div class="tag-row"><span>VM</span><span>Container</span><span>Serverless</span></div>
+            </article>
+            <article>
+              <span class="method-index">03</span>
+              <h3>Monitoring approach</h3>
+              <p>Cloud systems often estimate energy indirectly through CPU/GPU utilisation, memory use, execution time, request rate, and carbon-intensity assumptions. These proxy metrics help compare deployment choices when direct power readings are unavailable.</p>
+              <div class="tag-row"><span>CPU proxy</span><span>GPU proxy</span><span>Memory</span></div>
+            </article>
+            <article>
+              <span class="method-index">04</span>
+              <h3>Evaluation trade-off</h3>
+              <p>Useful evaluation compares a baseline deployment with an optimised deployment using energy, latency, accuracy, throughput, cost, reliability, and SLA indicators.</p>
+              <div class="tag-row"><span>Energy</span><span>Latency</span><span>Accuracy</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="architecture" class="tab-panel">
+          <header class="section-header">
+            <div>
+              <p class="eyebrow">Deployment design</p>
+              <h2>Energy-aware cloud architecture</h2>
+            </div>
+          </header>
+          <div class="architecture-flow" aria-label="Energy-aware cloud deployment pipeline">
+            <article>
+              <small>Step 01</small>
+              <strong>User scenario</strong>
+              <span>Model, workload, SLA, carbon intensity</span>
+            </article>
+            <article>
+              <small>Step 02</small>
+              <strong>Energy model</strong>
+              <span>Python scoring for compute and quality</span>
+            </article>
+            <article>
+              <small>Step 03</small>
+              <strong>Decision layer</strong>
+              <span>Risk level, recommendation, comparison</span>
+            </article>
+            <article>
+              <small>Step 04</small>
+              <strong>Evidence store</strong>
+              <span>MongoDB with local fallback records</span>
+            </article>
+          </div>
+          <div class="architecture-grid">
+            <article>
+              <span class="architecture-label">Interface</span>
+              <h3>Frontend dashboard</h3>
+              <p>The dashboard lets users configure AI workload demand, model profile, optimisation method, utilisation, carbon intensity, and deployment mode.</p>
+            </article>
+            <article>
+              <span class="architecture-label">API layer</span>
+              <h3>Python backend API</h3>
+              <p>The Python API converts simulator inputs into energy, carbon, latency, accuracy, cost, CPU/GPU proxy, memory, throughput, risk, and recommendation outputs.</p>
+            </article>
+            <article>
+              <span class="architecture-label">Persistence</span>
+              <h3>Storage layer</h3>
+              <p>Saved deployment scenarios, simulator reports, APX Assistant chats, and backend events can be stored in MongoDB, with CSV/JSON files available as local fallback storage.</p>
+            </article>
+            <article>
+              <span class="architecture-label">Evaluation</span>
+              <h3>Evaluation approach</h3>
+              <p>The architecture compares virtual machines, containers, and serverless functions using the same workload assumptions, making deployment trade-offs easier to inspect.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="report" class="tab-panel">
+          <header class="section-header">
+            <div>
+              <p class="eyebrow">Simulator outputs</p>
+              <h2>Deployment evidence</h2>
+            </div>
+          </header>
+          <div class="evidence-metrics" aria-label="Prototype evidence metrics">
+            <article><small>Energy proxy</small><strong>kWh/day</strong><span>Estimated daily compute demand</span></article>
+            <article><small>Carbon impact</small><strong>kg CO2e</strong><span>Energy linked to carbon intensity</span></article>
+            <article><small>Service quality</small><strong>SLA risk</strong><span>Latency, throughput, and reliability</span></article>
+            <article><small>Model quality</small><strong>Accuracy</strong><span>Retained prediction performance</span></article>
+          </div>
+          <div class="evidence-grid">
+            <article>
+              <small>Python backend</small>
+              <strong>Live evaluation API</strong>
+              <p>The dashboard calls the Python server to generate deployment metrics for each energy-aware AI scenario.</p>
+            </article>
+            <article>
+              <small>Experiment storage</small>
+              <strong>Saved scenario records</strong>
+              <p>Each saved scenario records deployment mode, optimisation technique, model profile, workload, energy, carbon, latency, accuracy, cost, throughput, and risk.</p>
+            </article>
+            <article>
+              <small>Evaluation model</small>
+              <strong>Indirect cloud metrics</strong>
+              <p>The prototype compares cloud deployments through proxy metrics, making it clear that results are estimates rather than physical meter readings.</p>
+            </article>
+          </div>
+          <div class="report-table" role="table" aria-label="Deployment evidence metrics">
+            <div role="row">
+              <strong>Evidence area</strong><strong>Metric</strong><strong>Why it matters</strong>
+            </div>
+            <div role="row"><span>Energy efficiency</span><span>kWh/day</span><span>Shows estimated compute energy demand for the selected AI deployment.</span></div>
+            <div role="row"><span>Carbon impact</span><span>kg CO2e/day</span><span>Links energy use to carbon intensity for sustainability comparison.</span></div>
+            <div role="row"><span>Service quality</span><span>Latency and throughput</span><span>Checks whether energy savings still support usable AI inference performance.</span></div>
+            <div role="row"><span>Model quality</span><span>Accuracy retained</span><span>Shows whether optimisation damages prediction quality too much.</span></div>
+            <div role="row"><span>Cloud efficiency</span><span>CPU/GPU proxy and memory</span><span>Represents resource pressure caused by the deployment choice.</span></div>
+            <div role="row"><span>Decision support</span><span>Risk and recommendation</span><span>Summarises whether the scenario is suitable, risky, or needs tuning.</span></div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div id="authGate" class="auth-gate">
+      <section class="auth-info" aria-label="Project access summary">
+        <div class="brand auth-brand">
+          <div class="brand-mark">APX</div>
+          <div>
+            <h1>Energy-Aware AI</h1>
+            <p>Cloud deployment research portal</p>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">Final year dissertation prototype</p>
+          <h2>Evaluate sustainable AI deployment before entering the dashboard.</h2>
+          <p class="auth-lead">This portal stores saved experiment scenarios under your local account name, then uses a Python model to compare cloud deployment options.</p>
+        </div>
+        <div class="auth-proof-grid">
+          <span><strong>Python API</strong><small>energy model</small></span>
+          <span><strong>MongoDB</strong><small>optional database</small></span>
+          <span><strong>Terms</strong><small>required access</small></span>
+        </div>
+      </section>
+
+      <section class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <button id="authThemeToggle" class="theme-toggle auth-theme-toggle" type="button" aria-pressed="false">
+          <span id="authThemeIcon">☀</span>
+          <span id="authThemeLabel">Light</span>
+        </button>
+        <p class="eyebrow">Secure access</p>
+        <h2 id="authTitle">Sign in</h2>
+        <p id="authLead" class="auth-lead">Sign in with the email and password you used during sign up. New users must create an account first.</p>
+        <div class="auth-mode-switch" aria-label="Authentication mode">
+          <button id="showSignin" class="active" type="button">Sign in</button>
+          <button id="showSignup" type="button">Sign up</button>
+        </div>
+        <form id="loginForm" class="login-form gate-form">
+          <label>
+            Email address
+            <input id="email" type="email" placeholder="student@example.com" autocomplete="email" autofocus>
+          </label>
+          <label>
+            Password
+            <input id="password" type="password" placeholder="Minimum 6 characters" autocomplete="current-password">
+          </label>
+          <label id="usernameLabel">
+            Display name
+            <input id="username" type="text" placeholder="Example: Ashok" autocomplete="name">
+          </label>
+          <label class="terms-check gate-terms">
+            <input id="acceptTerms" type="checkbox">
+            <span>I have read and accept the terms and conditions</span>
+          </label>
+          <div class="gate-actions">
+            <button id="authSubmit" class="primary-action" type="submit">Sign in and open dashboard</button>
+            <button id="gateTermsButton" class="secondary-action" type="button">Read terms</button>
+          </div>
+          <p id="gateMessage" class="auth-message">New email? Choose Sign up first. Existing email? Sign in with the same password.</p>
+        </form>
+      </section>
+    </div>
+
+    <div id="termsModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
+      <section class="modal">
+        <h2 id="termsTitle">Terms and conditions</h2>
+        <p>This prototype is for academic demonstration and dissertation evidence only. It estimates energy-aware AI deployment metrics using indirect assumptions and should not be treated as a real cloud billing, carbon accounting, or physical power measurement tool.</p>
+        <p>Saved experiments can be stored in MongoDB when it is available, and are also kept in a local CSV file for evidence export. This is a prototype login system, not a real production authentication service.</p>
+        <p>By signing in, you agree that the system can store your display name with saved experiment scenarios for project testing and screenshots. Do not use a real password that you use elsewhere.</p>
+        <button id="closeTerms" class="primary-action" type="button">Close</button>
+      </section>
+    </div>
+
+    <div id="toastStack" class="toast-stack" aria-live="assertive" aria-atomic="true"></div>
+    <button id="floatingAssistantButton" class="floating-assistant" type="button" aria-label="Open APX AI assistant">
+      <span>APX</span>
+      <strong>AI</strong>
+    </button>
+
+    <script src="app.js"></script>
+  </body>
+</html>

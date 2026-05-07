@@ -1,0 +1,29 @@
+# Python/cache
+__pycache__/
+*.py[cod]
+
+# Local environment secrets
+.env
+.env.*
+!.env.example
+
+# Local runtime data with account/history records
+user-accounts.json
+experiment-history.csv
+assistant-history.json
+simulator-reports.json
+backend-events.json
+
+# Local dissertation/report drafting files
+Energy-Aware-AI-Cloud-Deployment-Report-Draft.docx
+FINAL_YEAR_DISSERTATION_CHECKLIST.md
+build_dissertation_report.py
+report-methodology-flow.png
+report-system-architecture.png
+
+# Word temporary lock files
+~$*.docx
+
+# OS/editor files
+.DS_Store
+.vscode/
